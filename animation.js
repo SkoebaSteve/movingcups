@@ -8,14 +8,14 @@ var circle1 = s.circle(150, 150, 50).attr({
 });
 var circle2 = s.circle(500, 150, 50).attr({
   id: "circle2",
-  // fill: "red"
+  fill: "red"
 });
 var circle3 = s.circle(850, 150, 50).attr({
   id: "circle3",
-  // fill: "blue"
+  fill: "blue"
 });
 
-var tl = new TimelineMax({repeat:6, yoyo:true});
+var tl = new TimelineMax();
 
 var circles = [
     document.getElementById("circle1"),
@@ -57,9 +57,59 @@ var circles = [
     }
  }
 
+console.log(circle1.getBBox().x)
+
+ tl.to(circles[0], 1,{
+    bezier: {
+      type: 'soft',
+      values:[{
+        x:150,
+        y:150
+      },{
+        x:350,
+        y:0
+      }],
+      curviness: 0
+    },
+    ease: Power1.easeInOut,
+    onStart: function(){console.log(circles[0].style.transform);
+    onComplete: function(){console.log(circles[0].style.transform);}
+  });
+
+ tl.to(circles[0], 1,{
+    bezier: {
+      type: 'soft',
+      values:[{
+        x:500,
+        y:150
+      },{
+        x:700,
+        y:0
+      }],
+      curviness: 0
+    },
+    ease: Power1.easeInOut,
+    onComplete: function(){console.log(circles[0].style.transform);}
+  });
+
+ tl.to(circles[0], 1,{
+    bezier: {
+      type: 'soft',
+      values:[{
+        x:500,
+        y:150
+      },{
+        x:0,
+        y:0
+      }],
+      curviness: 0
+    },
+    ease: Power1.easeInOut,
+    onComplete: function(){console.log(circles[0].style.transform);}
+  });
+
+
  moveFirst = function(){
-  // tl.pause(0, true); //Go back to the start (true is to suppress events)
-  // tl.remove();
   tl.to(circles[0], 1,{
     bezier: {
       type: 'soft',
@@ -72,7 +122,8 @@ var circles = [
       }],
       curviness: 0
     },
-    ease: Power1.easeInOut
+    ease: Power1.easeInOut,
+    onComplete: function(){console.log("test")}
   }, 0)
 
   tl.to(circles[1], 1,{
