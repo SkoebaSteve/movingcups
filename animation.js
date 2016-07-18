@@ -3,13 +3,16 @@ var s = Snap("#svg").attr({
 });
 
 var circle1 = s.circle(150, 150, 50).attr({
-  id: "circle1"
+  id: "circle1",
+  fill: "blue"
 });
 var circle2 = s.circle(500, 150, 50).attr({
-  id: "circle2"
+  id: "circle2",
+  fill: "red"
 });
 var circle3 = s.circle(850, 150, 50).attr({
-  id: "circle3"
+  id: "circle3",
+  fill: "yellow"
 });
 
 
@@ -22,174 +25,34 @@ var circles = [
     button = document.querySelector(".move");
 
     randomNumber = Math.floor(Math.random() * circles.length);
-
-    circles[randomNumber].attr({fill:"green"});
-
-var bigTimeLine = new TimelineMax();
-
-var firstMove = function(){
-
-  var tl = new TimelineMax({repeat:1, yoyo:true, onRepeat:function(){console.log("test")}});
-  bigTimeLine.add(tl);
-  // first move
-  tl.to(circles[0].node, 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x:150,
-        y:150
-      },{
-        x:350,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut
-  }, 0)
-
-  tl.to(circles[1].node, 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x:-150,
-        y:-150
-      },{
-        x:-350,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut
-  }, 0)
-
-  // second move
-
-  tl.to(circles[0].node, 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x: 500,
-        y: 150
-      },{
-        x: 700,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut
-  }, 1)
-
-  tl.to(circles[2].node, 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x:-150,
-        y:-150
-      },{
-        x:-350,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut
-  }, 1)
-
-  // third move
-
-  tl.to(circles[0].node, 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x: 350,
-        y: 150
-      },{
-        x: 0,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut
-  }, 2)
-
-  tl.to(circles[1].node, 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x:0,
-        y:-150
-      },{
-        x:350,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut
-  }, 2)
-
-  // fourth move
-
-  tl.to(circles[0].node, 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x: 500,
-        y: 150
-      },{
-        x: 700,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut
-  }, 3)
-
-  tl.to(circles[1].node, 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x:0,
-        y:-150
-      },{
-        x:-350,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut
-  }, 3)
-
-  // fifth move
-
-  tl.to(circles[0].node, 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x: 500,
-        y: 150
-      },{
-        x: 350,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut
-  }, 4)
-
-  tl.to(circles[2].node, 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x: -150,
-        y: -150
-      },{
-        x: 0,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut
-  }, 4)
- }
+    circles[randomNumber].attr({stroke:"green", strokeWidth:3});
 
 
-button.addEventListener("click", firstMove);
+// use shuffle to always pick the first two for a random swap
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+function getCurrentPosition
+
+var move = function(){
+  shuffle(circles);
+};
+
+
+button.addEventListener("click", move);
