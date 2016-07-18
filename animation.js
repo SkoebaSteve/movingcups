@@ -24,6 +24,7 @@ var circles = [
     randomNumber = 0;
     button = document.querySelector(".move");
 
+    // pick a random number for the winning cup
     randomNumber = Math.floor(Math.random() * circles.length);
     circles[randomNumber].attr({stroke:"green", strokeWidth:3});
 
@@ -48,13 +49,57 @@ function shuffle(array) {
   return array;
 }
 
-function getCurrentPosition(circle){
-  circle.getBBox();
+var getCurrentPosition = function(circle){
+  var leftOffset = circle.getBoundingClientRect().left;
+  return leftOffset;
 };
 
-function move(){
-  shuffle(circles);
-};
+var bigTimeLine = new TimelineMax();
+
+var move = function(){
+
+  // shuffle(circles);
+
+  var tl = new TimelineMax();
+  bigTimeLine.add(tl);
+  // first move
+
+  console.log(circles[0].getBBox());
+  console.log(getCurrentPosition(circles[0].node));
+
+  console.log(circles[1].getBBox());
+  console.log(getCurrentPosition(circles[1].node));
+
+  // tl.to(circles[0].node, 1,{
+  //   bezier: {
+  //     type: 'soft',
+  //     values:[{
+  //       x:150,
+  //       y:150
+  //     },{
+  //       x:350,
+  //       y:0
+  //     }],
+  //     curviness: 0
+  //   },
+  //   ease: Power1.easeInOut
+  // }, 0)
+
+  // tl.to(circles[1].node, 1,{
+  //   bezier: {
+  //     type: 'soft',
+  //     values:[{
+  //       x:-150,
+  //       y:-150
+  //     },{
+  //       x:-350,
+  //       y:0
+  //     }],
+  //     curviness: 0
+  //   },
+  //   ease: Power1.easeInOut
+  // }, 0)
+}
 
 
 button.addEventListener("click", move);
