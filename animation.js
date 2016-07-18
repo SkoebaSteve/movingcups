@@ -3,63 +3,36 @@ var s = Snap("#svg").attr({
 });
 
 var circle1 = s.circle(150, 150, 50).attr({
-  id: "circle1",
-  fill: "green"
+  id: "circle1"
 });
 var circle2 = s.circle(500, 150, 50).attr({
-  id: "circle2",
-  fill: "red"
+  id: "circle2"
 });
 var circle3 = s.circle(850, 150, 50).attr({
-  id: "circle3",
-  fill: "blue"
+  id: "circle3"
 });
 
-var tl = new TimelineMax();
 
 var circles = [
-    document.getElementById("circle1"),
-    document.getElementById("circle2"),
-    document.getElementById("circle3")
+    circle1,
+    circle2,
+    circle3
   ],
-    button = document.querySelector(".move"),
-    smallStep = function(isNegative){
-      var negative = isNegative ? -1 : 1;
-      return step =[{
-        x: 150 * negative,
-        y: 150 * negative
-      }, {
-        x: 350 * negative,
-        y: 0
-      }]
-    },
-    movementPath = [
-      [smallStep(false), smallStep(true), smallStep(true)], //switch 1&2
-      [smallStep(false), false, false] //switch 1&3
-    ],
-    speed = 1;
-  move = function(){
-    for (step = 0; step < movementPath.length; step++) {
-      for(coordinates = 0; coordinates < movementPath[0].length; coordinates++){
-        if(movementPath[0]){     
-          tl.to(circles[coordinates], 1, {
-            bezier: {
-              type: 'soft',
-              values: movementPath[step][coordinates],
-              curviness: 0
-            },
-            ease: Power1.easeInOut
-          }, step)
-        }
-      }
+    randomNumber = 0;
+    button = document.querySelector(".move");
 
-      speed = speed - 20;
-    }
- }
+    randomNumber = Math.floor(Math.random() * circles.length);
 
-console.log(circle1.getBBox().x)
+    circles[randomNumber].attr({fill:"green"});
 
- tl.to(circles[0], 1,{
+var bigTimeLine = new TimelineMax();
+
+var firstMove = function(){
+
+  var tl = new TimelineMax({repeat:1, yoyo:true, onRepeat:function(){console.log("test")}});
+  bigTimeLine.add(tl);
+  // first move
+  tl.to(circles[0].node, 1,{
     bezier: {
       type: 'soft',
       values:[{
@@ -71,62 +44,10 @@ console.log(circle1.getBBox().x)
       }],
       curviness: 0
     },
-    ease: Power1.easeInOut,
-    onStart: function(){console.log(circles[0].style.transform);
-    onComplete: function(){console.log(circles[0].style.transform);}
-  });
-
- tl.to(circles[0], 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x:500,
-        y:150
-      },{
-        x:700,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut,
-    onComplete: function(){console.log(circles[0].style.transform);}
-  });
-
- tl.to(circles[0], 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x:500,
-        y:150
-      },{
-        x:0,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut,
-    onComplete: function(){console.log(circles[0].style.transform);}
-  });
-
-
- moveFirst = function(){
-  tl.to(circles[0], 1,{
-    bezier: {
-      type: 'soft',
-      values:[{
-        x:150,
-        y:150
-      },{
-        x:350,
-        y:0
-      }],
-      curviness: 0
-    },
-    ease: Power1.easeInOut,
-    onComplete: function(){console.log("test")}
+    ease: Power1.easeInOut
   }, 0)
 
-  tl.to(circles[1], 1,{
+  tl.to(circles[1].node, 1,{
     bezier: {
       type: 'soft',
       values:[{
@@ -141,7 +62,9 @@ console.log(circle1.getBBox().x)
     ease: Power1.easeInOut
   }, 0)
 
-  tl.to(circles[0], 1,{
+  // second move
+
+  tl.to(circles[0].node, 1,{
     bezier: {
       type: 'soft',
       values:[{
@@ -156,7 +79,7 @@ console.log(circle1.getBBox().x)
     ease: Power1.easeInOut
   }, 1)
 
-  tl.to(circles[2], 1,{
+  tl.to(circles[2].node, 1,{
     bezier: {
       type: 'soft',
       values:[{
@@ -171,7 +94,9 @@ console.log(circle1.getBBox().x)
     ease: Power1.easeInOut
   }, 1)
 
-  tl.to(circles[0], 1,{
+  // third move
+
+  tl.to(circles[0].node, 1,{
     bezier: {
       type: 'soft',
       values:[{
@@ -186,7 +111,7 @@ console.log(circle1.getBBox().x)
     ease: Power1.easeInOut
   }, 2)
 
-  tl.to(circles[1], 1,{
+  tl.to(circles[1].node, 1,{
     bezier: {
       type: 'soft',
       values:[{
@@ -201,7 +126,70 @@ console.log(circle1.getBBox().x)
     ease: Power1.easeInOut
   }, 2)
 
+  // fourth move
+
+  tl.to(circles[0].node, 1,{
+    bezier: {
+      type: 'soft',
+      values:[{
+        x: 500,
+        y: 150
+      },{
+        x: 700,
+        y:0
+      }],
+      curviness: 0
+    },
+    ease: Power1.easeInOut
+  }, 3)
+
+  tl.to(circles[1].node, 1,{
+    bezier: {
+      type: 'soft',
+      values:[{
+        x:0,
+        y:-150
+      },{
+        x:-350,
+        y:0
+      }],
+      curviness: 0
+    },
+    ease: Power1.easeInOut
+  }, 3)
+
+  // fifth move
+
+  tl.to(circles[0].node, 1,{
+    bezier: {
+      type: 'soft',
+      values:[{
+        x: 500,
+        y: 150
+      },{
+        x: 350,
+        y:0
+      }],
+      curviness: 0
+    },
+    ease: Power1.easeInOut
+  }, 4)
+
+  tl.to(circles[2].node, 1,{
+    bezier: {
+      type: 'soft',
+      values:[{
+        x: -150,
+        y: -150
+      },{
+        x: 0,
+        y:0
+      }],
+      curviness: 0
+    },
+    ease: Power1.easeInOut
+  }, 4)
  }
 
 
-button.addEventListener("click", moveFirst);
+button.addEventListener("click", firstMove);
