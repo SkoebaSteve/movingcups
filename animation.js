@@ -48,9 +48,11 @@ function shuffle(array) {
   return array;
 }
 
-function getCurrentPosition
+function getCurrentPosition(circle){
+  circle.getBBox();
+};
 
-var move = function(){
+function move(){
   shuffle(circles);
 };
 
